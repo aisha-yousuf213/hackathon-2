@@ -5,7 +5,7 @@ import Wrapper from "../shared/wrapper";
 function Logo() {
     return (
         <Wrapper>
-        <div className=" xl:h-[139px]  grid  grid-cols-3 md:grid-cols-7 md:gap-6 place-items-center place-content-between">
+        <div className=" xl:h-[139px]   grid  grid-cols-3 md:grid-cols-7 md:gap-6 place-items-center place-content-between">
             
             {/* logo */}
             <Image src="/assets/logo.png" alt="logo" width={85} height={87} className="w-[85px] h-[87px]"  />

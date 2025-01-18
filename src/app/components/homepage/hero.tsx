@@ -14,7 +14,7 @@ function Hero() {
             <h2  className={`${inter.className} pb-11  font-medium text-dark `}>
               Welcome to chairy 
             </h2>
-            <h1 className={`${inter.className} text-4xl md:text-6xl text-dark font-extrabold`}
+            <h1 className={`${inter.className} text-4xl sm:text-5xl md:text-6xl text-dark font-extrabold`}
             >
               Best Furniture Collection for your interior.
             </h1>

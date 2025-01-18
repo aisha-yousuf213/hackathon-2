@@ -40,8 +40,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 function Links() {
   return (
-    <div>
-      <div className="h-[74px] px-0 2xl:px-[300px]  py-[14px] bg-light flex justify-between items-center drop-shadow shadow-lightgray">
+    <div className="bg-light ">
+      <div className="h-[74px]   py-[14px] 2xl:w-[1320px] sm:mx-3 2xl:mx-auto flex justify-between items-center drop-shadow shadow-lightgray">
         <div className="hidden md:block ">
           <div className=" flex gap-16 ">
             {/* links */}

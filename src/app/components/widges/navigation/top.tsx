@@ -17,10 +17,10 @@ const links = [
 ];
 const Top = () => {
   return (
-    <div className="" >
+    <div className="bg-dark" >
       {/* shipping */}
-     <div className=" flex h-[45px]  justify-between py-[14px] px-0 2xl:px-[300px]    bg-dark">
-        <div className="flex gap-2 items-center justify-between   text-xs md:text-lg  opacity-[70%]">
+     <div className=" flex h-[45px]  justify-between py-[14px] 2xl:w-[1320px] sm:mx-3 2xl:mx-auto ">
+        <div className="flex gap-2 items-center justify-between text-[10px]   sm:text-xs md:text-lg  opacity-[70%]">
         
          
             <IoMdCheckmark className=" text-light  text-center w-4 h-4 " />
@@ -31,7 +31,7 @@ const Top = () => {
         </div> 
         
       {/* links */}
-       <div className="flex gap-3 md:gap-8 text-xs md:text-lg    text-light opacity-[70%] ">
+       <div className="flex gap-3 md:gap-8 text-[10px] sm:text-xs md:text-lg    text-light opacity-[70%] ">
         {links.map((link) => (
           <Link
             key={link.id}

@@ -1,54 +1,121 @@
+'use client'
+
 import { Inter } from "next/font/google";
 import Wrapper from "../shared/wrapper";
 import { PiShoppingCartSimpleLight } from "react-icons/pi";
 import Image from "next/image";
 import clsx from "clsx";
 import Heading from "../shared/heading";
+import { client } from "@/sanity/lib/client";
+import { queryData } from "../../../sanity/lib/queries";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { useEffect, useState } from "react";
+
+
+interface IQueryData {
+    
+
+  _id: string;
+  title: string;
+  price: number;
+  priceWithoutDiscount: number;
+  badge: string;
+  image_url: string;
+  category: {
+    _id: string;  
+    title: string;
+  }    
+  description: string;
+  inventory: number;
+  tags: string[];
+}
 
 const inter = Inter({ subsets: ["latin"] });
 
-const chairData = [
+export default   function Featured()  {
+  
+    const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+ 
+  
+
+  useEffect(() => {
     
-    { id: 1, name: "Library Stool Chair", price: "$20",src:"/assets/chair.png" },
-    { id: 2, name: "Library Stool Chair", price: "$20", src:"/assets/library.png" },
-    { id: 3, name: "Library Stool Chair", price: "$20", src:"/assets/stool.png" },
-    { id: 4, name: "Library Stool Chair", price: "$20", src:"/assets/chair-stool.png" },
-]
+  const fetchData = async () => {
     
+    try {
+const products = await sanityFetch({
+  query: queryData,})
 
-function Feauture() {
-    return (
-        <Wrapper>
-            <div className="mx-2  xl:mx-auto">
-                 {/* heading */}
-            <Heading title="Featured Items" className="pl-14 lg:pl-0 " />
-                   
+  setData(products);
 
-                {/* chair Data*/}
-                <div className="flex flex-col lg:h-[461px] lg:flex-row justify-between items-center   gap-4 ">
-                {chairData.map((chair) => (
-                <div className="relative" key={chair.id}>
+    } catch (error) { 
+      console.error("Error fetching data:", error);
+    } finally { 
+      setLoading(false);
+    }  
+  };
 
-                    <Image src={chair.src} alt="chair" width={600} height={650} className="w-[312px] h-[312px]"/>
-                    <p className={`${inter.className}   text-xl font-normal text-green`}>{chair.name}</p>
-                    <div className="flex justify-between">
-                    <span className=" gap-1 font-semibold py-4 text-dark" >{chair.price} </span>
-                    <PiShoppingCartSimpleLight className={clsx('w-[44px] h-[44px]',{'bg-button': chair.id === 1, 'bg-lightgray': chair.id === 2 || chair.id === 3 || chair.id === 4 ,  })} />
+  fetchData();
+  }, []);
+  
+
+  if (loading) return <p className="text-center flex justify-center items-center">Loading...</p>;
+  if (!data) return <p>No data available.</p>;
+
+  return (
+    <Wrapper>
+      <div className="mx-2 xl:mx-auto">
+        {/* Heading */}
+        <Heading title="Featured Items" className="pl-14 lg:pl-0" />
+
+        {/* Product List */}
+         <div className="flex flex-col lg:h-[461px] lg:flex-row justify-between items-center gap-4">
+           {
+            data.map((item: IQueryData) => (
+            
+            <div className="relative" key={item._id}>
+              {/* Product Image */}
+               <Image
+                src={item.image_url}
+                alt={item.title}
+                width={600}
+                height={650}
+                className="w-[312px] h-[312px]"
+              /> 
+
+              {/* Product Title */}
+              <h3 className={`${inter.className} text-xl font-normal text-green mt-2`}>
+                {item.title}
+              </h3>
+
+              {/* Product Price and Badge */}
+              <div className="flex justify-between items-center">
+                <span className="gap-1 font-semibold py-4 text-dark">
+                  ${item.price}{" "}
+                  <del className="text-slate-950/40">${item.priceWithoutDiscount}</del>
+                </span>
+                <PiShoppingCartSimpleLight className="w-[44px] h-[44px]" />
+              </div>
+
+              {/* Badge */}
+              {item.badge && (
+                <span
+                  className={clsx(
                     
-                    { chair.id === 1 && <span className={`w-[49px] h-[26px] py-[6px] px-[10-px] font-medium flex justify-center items-center text-light bg-new absolute z-10 top-[20px] left-[20px]`}>New</span>}
-                    {chair.id === 2 && <span className={`w-[49px] h-[26px] py-[6px] px-[10-px] font-medium flex justify-center items-center text-light bg-sale absolute z-10 top-[20px] left-[20px]`}>sales</span>}
-                    </div>
-
-                </div>
-               
-                ))}
-
-                </div>
-         </div>  
-        </Wrapper>
-        )
-
+                    "w-[49px] h-[26px] py-[6px] px-[10px] font-medium flex justify-center items-center text-light absolute z-10 top-[20px] left-[20px]",
+                    item.badge === "Sales" && 'bg-sale',
+                    item.badge === "New" && 'bg-new',
+                    
+                  )}
+                >
+                  {item.badge}
+                </span>
+              )}
+            </div>
+            ))}
+        </div> 
+      </div>
+    </Wrapper>
+  );
 }
-
-export default Feauture
-           

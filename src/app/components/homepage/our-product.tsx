@@ -1,26 +1,71 @@
+'use client'
+
+
 import Heading from "../shared/heading";
 import Wrapper from "../shared/wrapper";
 import Image from "next/image"
 import { PiShoppingCartSimpleLight } from "react-icons/pi";
 
-const chairData = [
-    
-    { id: 1, name: "Library Stool Chair", price: "$20",src:"/assets/chair.png" },
-    { id: 2, name: "Library Stool Chair", price: "$20", src:"/assets/library.png" },
-    { id: 3, name: "Library Stool Chair", price: "$20", src:"/assets/stool.png" },
-    { id: 4, name: "Library Stool Chair", price: "$20", src:"/assets/chair-stool.png" },
-     { id: 5, name: "Library Stool Chair", price: "$20", src:"/assets/Image4.png" },
-     { id: 6, name: "Library Stool Chair", price: "$20", src:"/assets/card1.png" },
-     { id: 7, name: "Library Stool Chair", price: "$20", src:"/assets/Image8.png" },
-    { id: 8, name: "Library Stool Chair", price: "$20", src:"/assets/card2.png" },
-]
 
 import { Inter } from "next/font/google";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { allProducts } from "@/sanity/lib/queries";
 ;
 const inter = Inter({ subsets: ["latin"] });
 
+interface Product {
+  _id: string;
+  title: string;
+  price: number;
+  priceWithoutDiscount: number;
+  badge: string;
+  image_url: string;
+  category: {
+    _id: string;
+    title: string;
+  };
+  description: string;
+  inventory: number;
+  tags: string[];
+}
+
 function OurProducts() {
+ const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+ 
+  
+
+  useEffect(() => {
+    
+  const fetchData = async () => {
+    
+    try {
+const products = await sanityFetch({
+  query: allProducts,})
+
+  setData(products);
+
+    } catch (error) { 
+      console.error("Error fetching data:", error);
+    } finally { 
+      setLoading(false);
+    }  
+  };
+
+  fetchData();
+  }, []);
+  
+
+  if (loading) return <p className="text-center flex justify-center items-center">Loading...</p>;
+  if (!data) return <p>No data available.</p>;
+
+
+
+
+
+
   return (
       <Wrapper>
           <div className=" mt-5 lg:mt-40">
@@ -30,18 +75,34 @@ function OurProducts() {
 
               {/* chair Data*/}
               <div className=" lg:h-[919px] place-items-center grid grid-cols-1 lg:grid-cols-4  gap-4 ">
-              {chairData.map((chair) => (
-              <div className="relative" key={chair.id}>
+              {data.map((chair: Product) => (
+              <div className="relative" key={chair._id}>
 
-                  <Image src={chair.src} alt="chair" width={600} height={650} className="w-[312px] h-[312px]"/>
-                  <p className={`${inter.className}   text-xl font-normal text-green`}>{chair.name}</p>
+                  <Image src={chair.image_url} alt="chair" width={600} height={650} className="w-[312px] h-[312px]"/>
+                  <p className={`${inter.className}   text-xl font-normal text-green`}>{chair.title}</p>
                   <div className="flex justify-between w-[312px] lg:w-full">
-                  <span className=" gap-1 font-semibold py-4 text-dark" >{chair.price} </span>
-                  <PiShoppingCartSimpleLight className={clsx('w-[44px] h-[44px]',{'bg-button': chair.id === 1, 'bg-lightgray': chair.id === 2 || chair.id === 3 || chair.id === 4 ,  })} />
+                  <span className=" gap-1 font-semibold py-4 text-dark" >{chair.price}
+
+                    {""}
+                  <del className="text-slate-950/40">${chair.priceWithoutDiscount}</del> </span>
+                  <PiShoppingCartSimpleLight className={clsx('w-[44px] h-[44px]')} />
                   
-                  { chair.id === 1 && <span className={`w-[49px] h-[26px] py-[6px] px-[10-px] font-medium flex justify-center items-center text-light bg-new absolute z-10 top-[20px] left-[20px]`}>New</span>}
-                  {chair.id === 2 && <span className={`w-[49px] h-[26px] py-[6px] px-[10-px] font-medium flex justify-center items-center text-light bg-sale absolute z-10 top-[20px] left-[20px]`}>sales</span>}
+                  
                   </div>
+                   {/* Badge */}
+                                {chair.badge && (
+                                  <span
+                                    className={clsx(
+                                      
+                                      "w-[49px] h-[26px] py-[6px] px-[10px] font-medium flex justify-center items-center text-light absolute z-10 top-[20px] left-[20px]",
+                                    chair.badge === "Sales" && 'bg-sale',
+                                    chair.badge === "New" && 'bg-new',
+                                      
+                                    )}
+                                  >
+                                    {chair.badge}
+                                  </span>
+                                )}
 
               </div>
              
