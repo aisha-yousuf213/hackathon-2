@@ -7,14 +7,14 @@ const inter = Inter({ subsets: ["latin"] });
 function Middle() {
   return (
     <div className="bg-lightgray">
-      <div className=" h-[84px] flex py-[20px] sm:mx-3 xl:w-[1320px] xl:mx-auto justify-between">
+      <div className=" h-[84px] flex py-[20px] sm:mx-3 2xl:w-[1320px] xl:mx-auto justify-between">
         {/* logo */}
         <div className=" flex gap-3 items-center">
           <Image
             src={"/assets/logo Icon.png"}
             alt="logo"
-            width={40}
-            height={40}
+            width={50}
+            height={50}
             className="w-[40px] h-[40px]"
           />
           {/* logo text */}

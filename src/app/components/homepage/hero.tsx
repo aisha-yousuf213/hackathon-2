@@ -3,6 +3,7 @@ import Wrapper from "../shared/wrapper";
 import { Button } from "@/components/ui/button";
 import { LuMoveRight } from "react-icons/lu";
 import Image from "next/image";
+import { Link } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
 function Hero() {
@@ -18,9 +19,11 @@ function Hero() {
             >
               Best Furniture Collection for your interior.
             </h1>
-            <Button className=" mt-14  bg-button text-light">
-              Shop Now <LuMoveRight />
+            
+            <Button className=" mt-14  bg-button text-light hover:bg-dark">
+              Shop Now <LuMoveRight /> 
             </Button>
+           
          </div>
         <div className=" md:pt-36 px-8 md:px-0  md:pr-28" >
           <Image

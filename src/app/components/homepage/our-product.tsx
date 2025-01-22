@@ -12,6 +12,8 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { allProducts } from "@/sanity/lib/queries";
+import Link from "next/link";
+import { Badge } from "lucide-react";
 ;
 const inter = Inter({ subsets: ["latin"] });
 
@@ -68,7 +70,7 @@ const products = await sanityFetch({
 
   return (
       <Wrapper>
-          <div className=" mt-5 lg:mt-40">
+          <div className=" mt-10">
                {/* heading */}
           <Heading title="Our Products" className="mx-auto" />
                  
@@ -76,6 +78,7 @@ const products = await sanityFetch({
               {/* chair Data*/}
               <div className=" lg:h-[919px] place-items-center grid grid-cols-1 lg:grid-cols-4  gap-4 ">
               {data.map((chair: Product) => (
+                <Link href={`/product/${chair._id}`} key={chair._id}>
               <div className="relative" key={chair._id}>
 
                   <Image src={chair.image_url} alt="chair" width={600} height={650} className="w-[312px] h-[312px]"/>
@@ -85,7 +88,8 @@ const products = await sanityFetch({
 
                     {""}
                   <del className="text-slate-950/40">${chair.priceWithoutDiscount}</del> </span>
-                  <PiShoppingCartSimpleLight className={clsx('w-[44px] h-[44px]')} />
+                  <PiShoppingCartSimpleLight className={clsx('w-[44px] h-[44px]', chair.badge === "Sales" && 'bg-lightgray',
+                                    chair.badge === "New" && 'bg-button')} />
                   
                   
                   </div>
@@ -105,7 +109,7 @@ const products = await sanityFetch({
                                 )}
 
               </div>
-             
+             </Link>
               ))}
 
               </div>

@@ -23,7 +23,7 @@ export const queryData  = defineQuery(`*[_type == "products" && "featured" in ta
       "image_url": image.asset->url
     }`);
 
-    export const allProducts = defineQuery(`*[_type == "products"][0..7]{
+    export const allProducts = defineQuery(`*[_type == "products"][6...14]{
       _id,
       title,
       price,
@@ -38,3 +38,24 @@ export const queryData  = defineQuery(`*[_type == "products" && "featured" in ta
       inventory,
       tags
     }`);
+
+
+    export const productDetailsQuery = defineQuery(` 
+*[_type == "products" && _id == $id]{
+  _id,
+  title,
+  price,
+  priceWithoutDiscount,
+  description,
+  "image_url": image.asset->url,
+  inventory,
+  tags
+}
+`);
+
+
+export const images = defineQuery(`
+  *[_type == "products" && "instagram" in tags[]][4...11]
+  {"image_url": image.asset->url,
+  _id}
+  `)

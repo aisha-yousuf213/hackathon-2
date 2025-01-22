@@ -7,6 +7,7 @@ import { BsInstagram } from "react-icons/bs";
 import { BsPinterest } from "react-icons/bs";
 import { FaYoutube } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const sofas = [
   "Sofa ",
@@ -36,8 +37,8 @@ function Footer() {
           <Image
             src={"/assets/logo Icon.png"}
             alt="logo"
-            width={40}
-            height={40}
+            width={30}
+            height={50}
             className="w-[40px] h-[40px]"
           />
           {/* logo text */}
@@ -71,11 +72,13 @@ function Footer() {
             CATEGORY
           </h2>
          {sofas.map((sofa,i) => (
-            <h4 key={i}
+          <Link href="/category/sofa" key={i}>
+            <h4 
               className={` ${inter.className} text-dark font-medium hover:text-green pb-2 `}
             >
               {sofa}
             </h4>
+          </Link>
          ))}
         </div>
 
@@ -87,11 +90,13 @@ function Footer() {
           </h2>
 
           {support.map((sup, index) => (
-            <h4 key={index}
+            <Link href="/category/sofa" key={index}>
+            <h4 
               className={` ${inter.className} text-dark font-medium hover:text-green pb-2 `}
             >
               {sup}
             </h4>
+            </Link>
           ))}
         </div>
         
