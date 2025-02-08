@@ -35,7 +35,7 @@ function Footer() {
         <div className="md:w-[350px] flex flex-col gap-7">
           <div className="flex gap-3 items-center">
           <Image
-            src={"/assets/logo Icon.png"}
+            src={"/assets/logo1.png"}
             alt="logo"
             width={30}
             height={50}
@@ -111,6 +111,7 @@ function Footer() {
   
       </div>
     </div>
+  
   );
 }
 

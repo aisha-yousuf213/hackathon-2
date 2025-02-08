@@ -50,14 +50,14 @@ console.log();
 
   return (
     <Wrapper>
-      <div className="lg:h-[461px] mx-2 xl:mx-auto">
+      <div className="lg-auto lg:h-[461px] mx-2 xl:mx-auto">
         <Heading title="Top categories" className="pl-14 lg:pl-0 " />
 
         <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
           {
             data.map((product: Product) => (
             <div
-              className="relative sm:w-[424px] h-[424px]"
+              className="relative sm:w-[424px] sm:h-[424px]"
               key={product._id}
             >
               <Image
@@ -65,9 +65,9 @@ console.log();
                 alt={product.title}
                 width={600}
                 height={650}
-                className="w-[424px] h-[424px]"
+                className="w-[312px] h-[312px] sm:w-[424px] sm:h-[424px]"
               />
-              <div className="w-full xl:w-[424px] h-[85px] top-[339px] rounded-b-[10px] p-[20px] gap-[10px] absolute bg-[#000000] opacity-[70%]">
+              <div className="w-full xl:w-[424px] h-[85px] top-56 sm:top-[339px] rounded-b-[10px] p-[20px] gap-[10px] absolute bg-[#000000] opacity-[70%]">
                 <h4 className={`${inter.className} text-light`}>
                   {product.title}
                 </h4>

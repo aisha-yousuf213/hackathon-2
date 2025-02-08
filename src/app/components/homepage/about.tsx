@@ -11,9 +11,9 @@ const inter = Inter({ subsets: ["latin"] });
 export default function About() {
   return (
     <Wrapper>
-      <div>
-        <div className=" flex flex-col md:flex-row justify-between items-center  gap-4 mt-9">
-          <div className="sm:w-[672px] h-[478px] bg-[#007580] pl-16 ">
+      <div className="mx-4 xl:mx-auto ">
+        <div className="  flex flex-col md:flex-row justify-between items-center  gap-4 mt-9">
+          <div className="rounded-xl pb-10 md:pb-0  md:rounded-none  md:w-[672px] md:h-[478px] bg-[#007580] pl-16 ">
             <h1
               className={` ${inter.className} text-2xl text-light font-semibold  pt-14 `}
             >
@@ -25,7 +25,7 @@ export default function About() {
               premium materials, and modern aesthetics, we craft chairs that
               seamlessly blend style with functionality.{" "}
             </p>
-            <Button className="bg-[#F9F9F926] opacity mt-8 15% lg:mt-36 text-light p-8">
+            <Button className="bg-[#F9F9F926] opacity mt-8 15% lg:mt-24 text-light p-8">
               View collection
             </Button>
           </div>
@@ -35,7 +35,7 @@ export default function About() {
               alt="chair"
               width={618}
               height={480}
-              className="w-[619px] h-[478px]"
+              className="w-[350px] h-[350px] md:w-[619px] md:h-[478px]"
             />{" "}
           </div>
         </div>

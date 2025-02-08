@@ -2,18 +2,22 @@
 
 import { Inter } from "next/font/google";
 import Wrapper from "../shared/wrapper";
-import { PiShoppingCartSimpleLight } from "react-icons/pi";
+import { ShoppingCart } from 'lucide-react';
 import Image from "next/image";
 import clsx from "clsx";
 import Heading from "../shared/heading";
-import { client } from "@/sanity/lib/client";
+
 import { queryData } from "../../../sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { FC, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 
 import Link from "next/link";
+import { addToCart } from "@/actions/addtocart";
+import { Button } from "@/components/ui/button";
+import Swal from 'sweetalert2';
 
-interface IQueryData {
+
+export interface IQueryData {
   _id: string;
   title: string;
   price: number;
@@ -34,6 +38,21 @@ const inter = Inter({ subsets: ["latin"] });
 const Featured = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const handleClick = (e: React.MouseEvent, product: IQueryData) => {
+    e.preventDefault();
+   Swal.fire({
+    position: 'top-right',
+    icon: 'success',
+    title: `${product.title} added to cart`,
+    showConfirmButton: false,
+    timer: 1000
+   })
+    addToCart(product);
+   
+    
+  };
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,19 +74,17 @@ const Featured = () => {
   }, []);
 
   if (loading)
-    return (
-      <p className="text-center flex justify-center items-center">Loading...</p>
-    );
+    return  <p className="text-center flex justify-center items-center">Loading...</p>
   if (!data) return <p>No data available.</p>;
 
   return (
     <Wrapper>
-      <div className="mx-2 xl:mx-auto">
+      <div className="mx-6 xl:mx-auto">
         {/* Heading */}
         <Heading title="Featured Items" className="pl-14 lg:pl-0" />
 
         {/* Product List */}
-        <div className="flex flex-col lg:h-[461px] lg:flex-row justify-between items-center gap-4">
+        <div className=" lg:h-[461px] grid grid-cols-2 lg:grid-cols-4 place-items-center place-content-between gap-6 xl:gap-4">
           {data.map((item: IQueryData) => (
             <Link
               href={`/product/[id]`}
@@ -81,7 +98,7 @@ const Featured = () => {
                   alt={item.title}
                   width={600}
                   height={650}
-                  className="w-[312px] h-[312px]"
+                  className="w-[156px] h-[156px] sm:w-[312px] sm:h-[312px]"
                 />
 
                 {/* Product Title */}
@@ -99,14 +116,17 @@ const Featured = () => {
                       ${item.priceWithoutDiscount}
                     </del>
                   </span>
-                  
-                  <PiShoppingCartSimpleLight
+                  <Button onClick={(e) => handleClick(e, item)} size={"icon"} className="">
+                   
+                  <ShoppingCart size={40}
                     className={clsx(
-                      "w-[44px] h-[44px]",
+                      " text-dark ",
                       item.badge === "Sales" && "bg-lightgray",
                       item.badge === "New" && "bg-button"
                     )}
                   />
+                
+                  </Button>
                   
                 </div>
 

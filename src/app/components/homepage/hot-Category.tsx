@@ -7,9 +7,9 @@ const roboto = Roboto({ subsets: ["latin"], weight: "400" });
 function HotCategory() {
   return (
     <Wrapper>
-        <div className={``}>
+        <div className='mx-2 xl:mx-auto'>
         
-        <div className=" w-[648px] h-[52px] z-50  -rotate-90 top-[460px] -left-[300px] md:-left-[240px] relative">
+        <div className="w-[648px] h-[52px] z-50  -rotate-90 top-80 md:top-[470px] -left-[300px] md:-left-[240px] relative">
             <p className={` ${roboto.className} text-4xl  absolute font-semibold text-black  `}>
             Explore new and popular styles
           </p>
@@ -20,37 +20,37 @@ function HotCategory() {
             alt="chair"
             width={500}
             height={500}
-            className="w-[648px] h-[648px]  "
+            className=" w-full h-full sm:w-[648px] sm:h-[648px]  "
           /> 
         
-        <div className="grid grid-cols-2 gap-4 ">
+        <div className="grid grid-cols-2 gap-4 w-full h-full sm:w-[648px] sm:h-[648px]">
           <Image
             src="/assets/card4.png"
             alt="chair"
             width={200}
             height={200}
-            className="w-[312px] h-[312px]  "
+            className="w-full h-full sm:w-[312px] sm:h-[312px]  "
           />
           <Image
             src="/assets/card2.png"
             alt="chair"
             width={200}
             height={200}
-            className="w-[312px] h-[312px]  "
+            className="w-full h-full sm:w-[312px] sm:h-[312px] "
           />
            <Image
             src="/assets/card1.png"
             alt="chair"
             width={200}
             height={200}
-            className="w-[312px] h-[312px]  "
+            className="w-full h-full sm:w-[312px] sm:h-[312px] "
           />
           <Image
             src="/assets/card3.png"
             alt="chair"
             width={200}
             height={200}
-            className="w-[312px] h-[312px]  "
+            className="w-full h-full sm:w-[312px] sm:h-[312px]  "
           /> 
         </div>
         </div>

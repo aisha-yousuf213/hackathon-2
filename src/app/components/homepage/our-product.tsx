@@ -13,7 +13,11 @@ import { useEffect, useState } from "react";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { allProducts } from "@/sanity/lib/queries";
 import Link from "next/link";
-import { Badge } from "lucide-react";
+import { Badge, ShoppingCart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { addToCart } from "@/actions/addtocart";
+import Swal from "sweetalert2";
+import { IQueryData } from "./feature";
 ;
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,7 +41,19 @@ function OurProducts() {
  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
  
-  
+   const handleClick = (e: React.MouseEvent, product: IQueryData) => {
+      e.preventDefault();
+     Swal.fire({
+      position: 'top-right',
+      icon: 'success',
+      title: `${product.title} added to cart`,
+      showConfirmButton: false,
+      timer: 1000
+     })
+      addToCart(product);
+     
+      
+    };
 
   useEffect(() => {
     
@@ -70,28 +86,35 @@ const products = await sanityFetch({
 
   return (
       <Wrapper>
-          <div className=" mt-10">
+          <div className="mx-6 xl:mx-auto mt-10">
                {/* heading */}
           <Heading title="Our Products" className="mx-auto" />
                  
 
               {/* chair Data*/}
-              <div className=" lg:h-[919px] place-items-center grid grid-cols-1 lg:grid-cols-4  gap-4 ">
+              <div className=" lg:h-[919px]  grid grid-cols-2 lg:grid-cols-4 place-items-center place-content-between gap-6  xl:gap-4 ">
               {data.map((chair: Product) => (
                 <Link href={`/product/${chair._id}`} key={chair._id}>
-              <div className="relative" key={chair._id}>
+              <div className="relative  " key={chair._id}>
 
-                  <Image src={chair.image_url} alt="chair" width={600} height={650} className="w-[312px] h-[312px]"/>
+                  <Image src={chair.image_url} alt="chair" width={600} height={650} className="w-[156px] h-[156px] sm:w-[312px] sm:h-[312px]"/>
                   <p className={`${inter.className}   text-xl font-normal text-green`}>{chair.title}</p>
-                  <div className="flex justify-between w-[312px] lg:w-full">
+                  <div className="flex justify-between items-center ">
                   <span className=" gap-1 font-semibold py-4 text-dark" >{chair.price}
 
                     {""}
                   <del className="text-slate-950/40">${chair.priceWithoutDiscount}</del> </span>
-                  <PiShoppingCartSimpleLight className={clsx('w-[44px] h-[44px]', chair.badge === "Sales" && 'bg-lightgray',
-                                    chair.badge === "New" && 'bg-button')} />
-                  
-                  
+                  <Button onClick={(e) => handleClick(e, chair)} size={"icon"} className="">
+                   
+                  <ShoppingCart size={40}
+                    className={clsx(
+                      " text-dark ",
+                      chair.badge === "Sales" && "bg-lightgray",
+                      chair.badge === "New" && "bg-button"
+                    )}
+                  />
+                
+                  </Button>
                   </div>
                    {/* Badge */}
                                 {chair.badge && (

@@ -19,7 +19,7 @@ const Top = () => {
   return (
     <div className="bg-dark" >
       {/* shipping */}
-     <div className=" flex h-[45px]  justify-between py-[14px] 2xl:w-[1320px] sm:mx-3 2xl:mx-auto ">
+     <div className=" flex h-[45px]  justify-between py-[14px] 2xl:w-[1320px] px-2 2xl:px-0 2xl:mx-auto ">
         <div className="flex gap-2 items-center justify-between text-[10px]   sm:text-xs md:text-lg  opacity-[70%]">
         
          

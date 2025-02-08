@@ -56,21 +56,21 @@ export default function Shop() {
       >
         Or subscribe to the newsletter
       </h2>
-      <div className="flex  justify-between  ">
+      <div className="w-auto  flex  justify-between  ">
         {/* newsletter subscription input */}
         <input
           type="text"
           placeholder="Email Address....."
-          className="bg-lightgray mt-5 border-b-2 border-dark pl-2 pr-8"
+          className="bg-lightgray mt-5 border-b-2 border-dark lg:pl-2 lg:pr-8"
         />
-        <Button className="bg-lightgray hover:bg-transparent ml-6 mt-5 border-b-2 border-dark">
+        <Button className="bg-lightgray hover:bg-transparent ml-6 mt-5 border-b-2 border-dark ">
           submit
         </Button>
       </div>
       <h2 className={`${inter.className}text-xl lg:text-3xl text-dark capitalize  font-semibold pt-12`}>Follow products and discounts on Instagram</h2>
       
 
-      <div className="grid grid-cols-2  md:grid-cols-3 grid-rows-2 lg:grid-cols-6  gap-4 my-12 lg:h-[261px]">
+      <div className="grid grid-cols-2  md:grid-cols-3 grid-rows-2 lg:grid-cols-6 mx-3 md:mx-0 gap-4 my-12 lg:h-[261px]">
         {
             data.map((item:image) => (
               <div key={item._id} className="">
