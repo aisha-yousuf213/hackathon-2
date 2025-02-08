@@ -1,6 +1,5 @@
 "use server";
 
-import { IQueryData } from "@/app/components/homepage/feature";
 import Stripe from "stripe";
 
 export async function createPaymentIntent() {

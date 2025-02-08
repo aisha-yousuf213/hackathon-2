@@ -1,5 +1,5 @@
 import { IQueryData } from "@/app/components/homepage/feature";
-import exp from "constants";
+
 
 
 export const addToCart =  (product: IQueryData) => {

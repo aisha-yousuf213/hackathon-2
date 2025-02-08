@@ -1,7 +1,8 @@
+import { defineType } from "sanity";
 
 
 
-export default {
+export  const orderSchema = defineType({
     name: "order",
     type: "document",
     title: "Order",
@@ -61,4 +62,5 @@ export default {
                 initialValue : 'pending'
         }
     ]
-}
+
+})

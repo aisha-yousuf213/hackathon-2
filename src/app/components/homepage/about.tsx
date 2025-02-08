@@ -1,4 +1,4 @@
-import { Butterfly_Kids, Inter } from "next/font/google";
+import {  Inter } from "next/font/google";
 import Wrapper from "../shared/wrapper";
 import { Button } from "@/components/ui/button";
 import chair from "../../../../public/assets/card3.png";

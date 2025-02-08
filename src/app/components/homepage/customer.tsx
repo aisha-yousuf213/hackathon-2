@@ -9,13 +9,6 @@ import { client } from "@/sanity/lib/client";
 import { useRouter } from "next/navigation";
 
 const CheckOut = () => {
-    const getName = useRef<HTMLInputElement>(null);
-    const getEmail = useRef<HTMLInputElement>(null);
-    const getPhone = useRef<HTMLInputElement>(null);
-    const getAddress = useRef<HTMLInputElement>(null);
-    const getCity = useRef<HTMLInputElement>(null);
-    const getZipcode = useRef<HTMLInputElement>(null);
-    const getPaymentMethod = useRef<HTMLInputElement>(null);
     
 
 
@@ -101,42 +94,10 @@ const CheckOut = () => {
       console.error("Error creating order:", error);
     }
   };
-  const handleSubmitt = async (e: React.FormEvent) => {
-      e.preventDefault();
-      const payLoad = {
-          shipToAddress: {
-              name: getName.current?.value,
-              email: getEmail.current?.value,
-              phone: getPhone.current?.value,
-              address: getAddress.current?.value,
-              city: getCity.current?.value,
-              zipcode: getZipcode.current?.value,
-
-          },
-          packages:[
-            {
-                weight: {value: subTotal, unit: "ounce"},
-                dimensions: {length: 10, width: 15, height: 3, unit: "inch"},
-            }
-          ]
-      }
-     try {
-      const res = await fetch("http://localhost:3000/api/shipengine", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payLoad),
-          })
-          const data = await res.json();
-          console.log(data);
-     } catch (error) {
-      console.error("Error creating order:", error);
-    }
-  }
+ 
   return (
     <Wrapper>
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4" onSubmit={handleSubmitt}>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4" >
       
       {/* Billing Form */}
       <form className="bg-white border rounded-lg p-6 space-y-6 shadow-md w-full max-w-md sm:max-w-lg">
@@ -153,7 +114,6 @@ const CheckOut = () => {
               id="name"
               placeholder="Enter your name"
               type="text"
-              ref={getName}
               value={formValues.name}
               onChange={handleChange}
               className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -171,7 +131,6 @@ const CheckOut = () => {
               id="address"
               placeholder="Enter your address"
               type="text"
-              ref={getAddress}
               value={formValues.address}
               onChange={handleChange}
               className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -190,7 +149,6 @@ const CheckOut = () => {
                 id="city"
                 placeholder="Enter your city"
                 type="text"
-                ref={getCity}
                 value={formValues.city}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -207,7 +165,6 @@ const CheckOut = () => {
                 id="zipCode"
                 placeholder="Enter your zip code number"
                 type="text"
-                ref={getZipcode}
                 value={formValues.zipcode}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -225,7 +182,6 @@ const CheckOut = () => {
                 placeholder="Enter your phone number"
                 type="tel"
                 value={formValues.phone}
-                ref={getPhone}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -242,7 +198,6 @@ const CheckOut = () => {
                 placeholder="Enter your email address"
                 value={formValues.email}
                 type="email"
-                ref={getEmail}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />

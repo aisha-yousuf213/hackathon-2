@@ -4,7 +4,7 @@
 import Heading from "../shared/heading";
 import Wrapper from "../shared/wrapper";
 import Image from "next/image"
-import { PiShoppingCartSimpleLight } from "react-icons/pi";
+
 
 
 import { Inter } from "next/font/google";
