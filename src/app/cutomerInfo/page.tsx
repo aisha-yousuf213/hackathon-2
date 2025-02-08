@@ -3,9 +3,9 @@ import CheckOut from '../components/homepage/customer'
 
 const Info = () => {
   return (
-    <>
+    <div>
       <CheckOut />
-    </>
+    </div>
   )
 }
 
