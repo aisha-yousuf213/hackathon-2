@@ -2,13 +2,16 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import { addToCart } from "@/actions/addtocart";
 
 import Image from 'next/image';
 import { sanityFetch } from '@/sanity/lib/fetch';
 import { productDetailsQuery } from '@/sanity/lib/queries';
 import Wrapper from '@/app/components/shared/wrapper';
 import { Button } from '@/components/ui/button';
-import { useCart } from 'react-use-cart';
+
+import { IQueryData } from '@/app/components/homepage/feature';
+import Swal from 'sweetalert2';
 // Define product type
 interface IProduct {
   _id: string;
@@ -26,9 +29,22 @@ const fallbackImage = '/images/fallback.png';
 
 const ProductDetails = (products : any) => {
   const { id } = useParams();
-  const [product, setProduct] = useState<IProduct | null>(null);
+  const [product, setProduct] = useState<IQueryData | null>(null);
   const [loading, setLoading] = useState(false);
-  const { addItem } = useCart();
+const handleClick = (e: React.MouseEvent, product: IQueryData) => {
+    e.preventDefault();
+    Swal.fire({
+      position: 'top-right',
+      icon: 'success',
+      title: `${product.title} added to cart`,
+      showConfirmButton: false,
+      timer: 1000
+    })
+    addToCart(product);
+   
+    
+  };
+
   // Hook to access cart functionality
  
   useEffect(() => {
@@ -82,7 +98,7 @@ const ProductDetails = (products : any) => {
             {product.description}
           </p>
           
-         <Button className='bg-button text-light rounded-2xl hover:bg-cart'>Add To Cart</Button>
+         <Button  onClick={(e) => handleClick(e, product)} className='bg-button text-light rounded-2xl hover:bg-cart'>Add To Cart</Button>
         </div>
       </div>
      

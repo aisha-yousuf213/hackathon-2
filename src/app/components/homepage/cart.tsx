@@ -74,7 +74,7 @@ const CartPage = () => {
       if (result.isConfirmed) {
         Swal.fire("Success", "Your order has been successfully placed", "success");
 
-        router.push("/cutomerInfo");
+        router.push("/customerInfo");
         setCartItems([]);
       }
     });
